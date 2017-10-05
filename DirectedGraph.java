@@ -1,4 +1,5 @@
 public class DirectedGraph {
+    //modification 1 on B1
 	public class EdgeNode {
 		boolean m_visited;
 		int m_vertex;

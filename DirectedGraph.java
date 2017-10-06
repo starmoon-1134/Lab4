@@ -62,3 +62,4 @@ public class DirectedGraph {
 		}
 	}
 }
+//add some notes in DirectedGraph.java at B1 branch

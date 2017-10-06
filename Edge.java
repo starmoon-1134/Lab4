@@ -10,3 +10,5 @@ public class Edge {
 	}
 }
 //add a line in Edge.java for lab3 case1
+//add a line in Edge.java at B2 branch
+//

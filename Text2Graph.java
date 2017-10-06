@@ -380,6 +380,6 @@ public class Text2Graph {
 		return result;
     }
    
-=======
 // add some note in Text2Graph.java at C4 branch
->>>>>>> C4
+
+//add a line in Text2Graph.java at B2 branch

@@ -379,7 +379,7 @@ public class Text2Graph {
 		graph.resetVisited();
 		return result;
     }
-}
    
-
-// add some note in Text2Graph.java at B1 branch
+=======
+// add some note in Text2Graph.java at C4 branch
+>>>>>>> C4

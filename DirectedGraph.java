@@ -63,3 +63,4 @@ public class DirectedGraph {
 	}
 }
 //add some notes in DirectedGraph.java at B1 branch
+// add some note in DirectedGraph.java at C4

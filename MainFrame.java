@@ -45,7 +45,7 @@ public class MainFrame {
 			radioPanel.add(radioButton[i]);
 		}
 		radioButton[0].setSelected(true);
-		
+
 		frame.setLayout(new BorderLayout(1, 3));
 		frame.add(radioPanel, BorderLayout.NORTH);
 
@@ -54,7 +54,7 @@ public class MainFrame {
 		buttonPanel.add(textFieldRight);
 		buttonPanel.add(confirmButton);
 		confirmButton.addActionListener(new buttonClickedListener());
-		
+
 		textAreaIn.setLineWrap(true);
 		textAreaIn.setWrapStyleWord(true);
 		textAreaIn.setFont(new Font("Serif", Font.PLAIN, 20));
@@ -66,11 +66,11 @@ public class MainFrame {
 		scrollPaneIn.setPreferredSize(new Dimension(400, 400));
 		scrollPaneIn.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPaneOut.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		
+
 		textPanel.setLayout(new BorderLayout(1, 3));
 		textPanel.add(scrollPaneIn, BorderLayout.WEST);
 		textPanel.add(scrollPaneOut);
-		
+
 		groupPanel.setLayout(new BorderLayout(1, 3));
 		groupPanel.add(buttonPanel, BorderLayout.NORTH);
 		groupPanel.add(textPanel);
@@ -80,16 +80,16 @@ public class MainFrame {
         imagePanel.setLayout(new BorderLayout());
         imagePanel.add(imageViewer);
 		imagePanel.setPreferredSize(new Dimension(800, 600));
-		
+
 		frame.add(groupPanel);
-		
+
 		frame.setSize(800, 400);
 		frame.setPreferredSize(new Dimension(800, 400));
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 	}
-	
+
 	public class buttonClickedListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -106,7 +106,7 @@ public class MainFrame {
 					textOut = "Source word should not be empty!";
 					break;
 				}
-				
+
 				textOut = t2g.calcShortestPath(textFieldLeft.getText(), textFieldRight.getText());
 				t2g.outputGraph();
 				if(imageFrame == null) imageFrame = new ImageFrame("Shortest Path");
@@ -120,21 +120,21 @@ public class MainFrame {
 				;
 			}
 
-			textAreaOut.setText(textOut);			
+			textAreaOut.setText(textOut);
 		}
 	}
-	
+
 	public class radioItemListener implements ItemListener {
 		public void itemStateChanged(ItemEvent e) {
 			JRadioButton item = (JRadioButton) e.getSource();
 			textAreaOut.setText("");
-			
+
 			if(item != radioButton[4] && imagePanel.isShowing()){
 				frame.remove(imagePanel);
 				frame.add(groupPanel);
 				frame.repaint();
 			}
-			
+
 			if(item == radioButton[1] || item == radioButton[3]) {
 				textFieldLeft.setVisible(false);
 				textFieldRight.setVisible(false);
@@ -142,7 +142,7 @@ public class MainFrame {
 				textFieldLeft.setVisible(true);
 				textFieldRight.setVisible(true);
 			}
-			
+
 			if(item == radioButton[0]) {
 				selection = 0;
 				scrollPaneIn.setVisible(false);
@@ -161,12 +161,12 @@ public class MainFrame {
 				frame.add(imagePanel);
 				frame.repaint();
 			}
-			
+
 			frame.pack();
 		}
 	}
-	
-	
+
+
 	class ImageFrame extends JFrame {
 		private ImageViewer imageViewer = new ImageViewer();
 		ImageFrame(String title) {
@@ -176,7 +176,7 @@ public class MainFrame {
 			setPreferredSize(new Dimension(600, 400));
 			pack();
 		}
-		
+
 		public void setImage(String path) {
 			imageViewer.setImage(path);
 		}

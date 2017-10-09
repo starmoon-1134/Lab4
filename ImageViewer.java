@@ -18,12 +18,12 @@ public class ImageViewer extends JComponent {
                 image.setZoom(2. * slider.getValue() / slider.getMaximum());
             }
         });
-		
+
 		this.setLayout(new BorderLayout());
 		this.add(slider, BorderLayout.NORTH);
 		this.add(scrollPane);
 	}
-	
+
 	public boolean setImage(String path) {
 		return image.setImage(path);
 	}

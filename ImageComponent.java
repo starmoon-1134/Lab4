@@ -7,7 +7,7 @@ import javax.swing.*;
 public class ImageComponent extends JComponent {
 
     private BufferedImage img = new BufferedImage(400, 400, BufferedImage.TYPE_3BYTE_BGR);
-    
+
     public boolean setImage(String path) {
         try {
 			img = ImageIO.read(new File(path));

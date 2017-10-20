@@ -1,8 +1,17 @@
+
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
@@ -18,12 +27,17 @@ public class Text2Graph {
    * @since 1.0
    * @version 1.1
    * @author xxx
+   * @throws UnsupportedEncodingException
    */
-  public void init() throws FileNotFoundException {
-    Scanner input = new Scanner(new File(
-        Configuration.TextFilePath));
+  public void init() throws FileNotFoundException,
+      UnsupportedEncodingException {
+    InputStream inputStreamsss = new FileInputStream(
+        new File(Configuration.TextFilePath));
+    InputStreamReader buf = new InputStreamReader(
+        inputStreamsss, "utf-8");
+    Scanner input = new Scanner(buf);
 
-    String text = new String();
+    String text = new String("");
     while (input.hasNext()) {
       String line = input.nextLine();
       text += line + " ";
@@ -163,10 +177,12 @@ public class Text2Graph {
         .size()];
 
     // 遍历 HashMap 的键，即不重复的单词集合，以单词对应的值作为下标，将单词存入新的字符串数组中
-    Set<String> wordsKeys = wordsHashMap.keySet();
-    for (String key : wordsKeys) {
-      int index = (int) wordsHashMap.get(key);
-      filteredWords[index] = key;
+    Iterator iterator = wordsHashMap.entrySet().iterator();
+    while (iterator.hasNext()) {
+      Map.Entry<String, Integer> entry = (Entry<String, Integer>) iterator
+          .next();
+      int index = entry.getValue();
+      filteredWords[index] = entry.getKey();
     }
 
     // 将每两个相邻单词连接为词组，以该词组为键，以该词组在文本中出现的次数为值，建立 phraseHashMap。
@@ -188,8 +204,8 @@ public class Text2Graph {
       String[] splitPhrase = key.split(" ");
       int src = (int) wordsHashMap.get(splitPhrase[0]);
       int dest = (int) wordsHashMap.get(splitPhrase[1]);
-      edges[index] = new Edge(src, dest, (int) phraseHashMap
-          .get(key));
+      edges[index] = new Edge(src, dest,
+          (int) phraseHashMap.get(key));
       index++;
     }
 
@@ -238,8 +254,11 @@ public class Text2Graph {
               Configuration.DotScriptPath, "-Tjpg", "-o",
               Configuration.JpgImagePath });
       proc.waitFor();
-    } catch (Exception e) {
-      // TODO Auto-generated catch block
+    } catch (IOException e) {
+      // TODO 自动生成的 catch 块
+      e.printStackTrace();
+    } catch (InterruptedException e) {
+      // TODO 自动生成的 catch 块
       e.printStackTrace();
     }
 
@@ -253,11 +272,13 @@ public class Text2Graph {
    * @version 1.1
    * @author xxx
    */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public String queryBridgeWords(String word1,
       String word2) {
     ArrayList<String> bridgeWords = queryBridgeWords(graph,
         word1, word2);
     String result = "";
+    final String toString = " to ";
 
     if (bridgeWords.size() == 0) {
       int indexOfWord1 = graph.getIndexOfWord(word1);
@@ -266,17 +287,18 @@ public class Text2Graph {
         result = "No " + word1 + " or " + word2
             + " in the graph!";
       } else {
-        result = "No bridge words from " + word1 + " to "
+        result = "No bridge words from " + word1 + toString
             + word2 + "!";
       }
       return result;
     }
 
-    result = "The bridge words from " + word1 + " to "
+    result = "The bridge words from " + word1 + toString
         + word2 + " are:";
     int count = 1;
     int size = bridgeWords.size();
     for (String word : bridgeWords) {
+
       if (count == 1) {
         result += word;
       } else if (count == size) {
@@ -489,8 +511,8 @@ public class Text2Graph {
       curIndex = prev[curIndex];
     } while (curIndex != src);
     result = graph.vexList[src].myData + result;
-    result = "The length of shortest path is: " + String
-        .valueOf(length) + "\n" + result;
+    result = "The length of shortest path is: "
+        + String.valueOf(length) + "\n" + result;
 
     return result;
   }
@@ -530,9 +552,8 @@ public class Text2Graph {
         curIndex = prev[curIndex];
       } while (curIndex != src);
       path = graph.vexList[src].myData + path;
-      result += path + "\n";
+      result += (path + "\n");
     }
-
     return result.trim();
   }
 

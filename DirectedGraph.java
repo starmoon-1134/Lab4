@@ -1,5 +1,6 @@
+
 public class DirectedGraph {
-  public class EdgeNode {
+  public static class EdgeNode {
     boolean myVisited;
     int myVertex;
     int myWeight;
@@ -48,7 +49,8 @@ public class DirectedGraph {
    * @version 1.1
    * @author xxx
    */
-  public DirectedGraph(String[] filteredWords, Edge[] edges) {
+  public DirectedGraph(String[] filteredWords,
+      Edge[] edges) {
     vexList = new VertexNode[filteredWords.length];
     int count = 0;
 
@@ -59,7 +61,8 @@ public class DirectedGraph {
 
     for (Edge edge : edges) {
       VertexNode src = vexList[edge.mySrc];
-      src.myFirstEdge = new EdgeNode(edge.myDest, edge.myWeight, src.myFirstEdge);
+      src.myFirstEdge = new EdgeNode(edge.myDest,
+          edge.myWeight, src.myFirstEdge);
       src.myCount++;
     }
   }

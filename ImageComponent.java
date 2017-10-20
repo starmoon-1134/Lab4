@@ -1,3 +1,4 @@
+
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -9,7 +10,8 @@ import javax.swing.JComponent;
 
 public class ImageComponent extends JComponent {
 
-  private BufferedImage img = new BufferedImage(400, 400, BufferedImage.TYPE_3BYTE_BGR);
+  private transient BufferedImage img = new BufferedImage(
+      400, 400, BufferedImage.TYPE_3BYTE_BGR);
 
   /**
    * javadoc×¢ÊÍÄÚÈÝ

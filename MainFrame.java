@@ -1,3 +1,4 @@
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -24,10 +25,13 @@ public class MainFrame {
   private JRadioButton[] radioButton = new JRadioButton[selectionCount];
   private JTextField textFieldLeft = new JTextField(10);
   private JTextField textFieldRight = new JTextField(10);
-  private JTextArea textAreaIn = new JTextArea("Enter text here");
+  private JTextArea textAreaIn = new JTextArea(
+      "Enter text here");
   private JTextArea textAreaOut = new JTextArea();
-  private JScrollPane scrollPaneIn = new JScrollPane(textAreaIn);
-  private JScrollPane scrollPaneOut = new JScrollPane(textAreaOut);
+  private JScrollPane scrollPaneIn = new JScrollPane(
+      textAreaIn);
+  private final JScrollPane scrollPaneOut = new JScrollPane(
+      textAreaOut);
   private JPanel groupPanel = new JPanel();
   private JPanel imagePanel = new JPanel();
   private ImageViewer imageViewer = new ImageViewer();
@@ -47,11 +51,10 @@ public class MainFrame {
     } catch (FileNotFoundException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
-      System.exit(1);
     }
 
-    String[] selectionText = { "Bridge Words", "New Text", "Shortest Path", "Random Walk",
-        "Show Graph" };
+    String[] selectionText = { "Bridge Words", "New Text",
+        "Shortest Path", "Random Walk", "Show Graph" };
     assert (selectionText.length == selectionCount);
 
     JPanel radioPanel = new JPanel();
@@ -59,7 +62,8 @@ public class MainFrame {
     ButtonGroup radioGroup = new ButtonGroup();
     for (int i = 0; i < selectionCount; i++) {
       radioButton[i] = new JRadioButton(selectionText[i]);
-      radioButton[i].addItemListener(new RadioItemListener());
+      radioButton[i]
+          .addItemListener(new RadioItemListener());
       radioGroup.add(radioButton[i]);
       radioPanel.add(radioButton[i]);
     }
@@ -73,7 +77,8 @@ public class MainFrame {
     buttonPanel.add(textFieldLeft);
     buttonPanel.add(textFieldRight);
     buttonPanel.add(confirmButton);
-    confirmButton.addActionListener(new ButtonClickedListener());
+    confirmButton
+        .addActionListener(new ButtonClickedListener());
 
     textAreaIn.setLineWrap(true);
     textAreaIn.setWrapStyleWord(true);
@@ -84,8 +89,10 @@ public class MainFrame {
     textAreaOut.setFont(new Font("Serif", Font.PLAIN, 20));
 
     scrollPaneIn.setPreferredSize(new Dimension(400, 400));
-    scrollPaneIn.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-    scrollPaneOut.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+    scrollPaneIn.setVerticalScrollBarPolicy(
+        JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+    scrollPaneOut.setVerticalScrollBarPolicy(
+        JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
     JPanel textPanel = new JPanel();
     textPanel.setLayout(new BorderLayout(1, 3));
@@ -111,17 +118,20 @@ public class MainFrame {
     frame.setVisible(true);
   }
 
-  public class ButtonClickedListener implements ActionListener {
+  public class ButtonClickedListener
+      implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
       String textOut = "";
       switch (selection) {
         case 0:
-          textOut = t2g.queryBridgeWords(textFieldLeft.getText().toLowerCase(),
+          textOut = t2g.queryBridgeWords(
+              textFieldLeft.getText().toLowerCase(),
               textFieldRight.getText().toLowerCase());
           break;
         case 1:
-          textOut = t2g.generateNewText(textAreaIn.getText().toLowerCase());
+          textOut = t2g.generateNewText(
+              textAreaIn.getText().toLowerCase());
           break;
         case 2:
           if (textFieldLeft.getText().equals("")) {
@@ -129,7 +139,8 @@ public class MainFrame {
             break;
           }
 
-          textOut = t2g.calcShortestPath(textFieldLeft.getText().toLowerCase(),
+          textOut = t2g.calcShortestPath(
+              textFieldLeft.getText().toLowerCase(),
               textFieldRight.getText().toLowerCase());
           t2g.outputGraph();
           if (imageFrame == null) {
@@ -142,7 +153,7 @@ public class MainFrame {
           textOut = t2g.randomWalk();
           break;
         default:
-          ;
+          break;
       }
 
       textAreaOut.setText(textOut);
@@ -161,13 +172,15 @@ public class MainFrame {
       JRadioButton item = (JRadioButton) e.getSource();
       textAreaOut.setText("");
 
-      if (item != radioButton[4] && imagePanel.isShowing()) {
+      if (item != radioButton[4]
+          && imagePanel.isShowing()) {
         frame.remove(imagePanel);
         frame.add(groupPanel);
         frame.repaint();
       }
 
-      if (item == radioButton[1] || item == radioButton[3]) {
+      if (item == radioButton[1]
+          || item == radioButton[3]) {
         textFieldLeft.setVisible(false);
         textFieldRight.setVisible(false);
       } else {
@@ -203,7 +216,8 @@ public class MainFrame {
 
     ImageFrame(String title) {
       super(title);
-      setImage(Configuration.JpgImagePath);
+      imageViewer.setImage(Configuration.JpgImagePath);
+
       getContentPane().add(imageViewer);
       setPreferredSize(new Dimension(600, 400));
       pack();
